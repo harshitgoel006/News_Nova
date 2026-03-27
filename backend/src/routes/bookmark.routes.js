@@ -12,10 +12,25 @@ import { paginationQuerySchema, mongoIdParamSchema } from "../validators/common.
 
 const router = Router();
 
-router.post("/", verifyJWT, validate(bookmarkSchema), addBookmark);
+router.post(
+  "/", 
+  verifyJWT, 
+  validate(bookmarkSchema), 
+  addBookmark
+);
 
-router.get("/", verifyJWT, validate(paginationQuerySchema), getBookmarks);
+router.get(
+  "/", 
+  verifyJWT, 
+  validate(paginationQuerySchema), 
+  getBookmarks
+);
 
-router.delete("/:id", verifyJWT, validate(mongoIdParamSchema), removeBookmark);
+router.delete(
+  "/:id", 
+  verifyJWT, 
+  validate(mongoIdParamSchema), 
+  removeBookmark
+);
 
 export default router;

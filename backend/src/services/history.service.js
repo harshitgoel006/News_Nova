@@ -29,7 +29,6 @@ async addHistory(userId, article) {
     { new: true, upsert: true }
   );
 
-  // 🔥 limit history (50 max) optimized
   const total = await History.countDocuments({ user: userId });
 
   if (total > 50) {
@@ -49,6 +48,8 @@ async addHistory(userId, article) {
 
   return history;
 },
+
+
 
 //////////////////////////////////////////////////////////
 // GET HISTORY
@@ -72,6 +73,8 @@ async getHistory(userId, query) {
     meta: buildPaginationMeta(total, page, limit)
   };
 },
+
+
 
 //////////////////////////////////////////////////////////
 // CLEAR HISTORY

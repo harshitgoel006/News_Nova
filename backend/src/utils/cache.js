@@ -5,7 +5,7 @@ export const getCache = async (key) => {
     const data = await redisClient.get(key);
     return data ? JSON.parse(data) : null;
   } catch (err) {
-    return null; // fail safe
+    return null; 
   }
 };
 

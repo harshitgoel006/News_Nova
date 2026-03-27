@@ -18,11 +18,7 @@ const startServer = async () => {
     await connectRedis();
     logger.info("Redis connected");
 
-    //////////////////////////////////////////////////////////
-    // 🔥 INITIAL PREFETCH (MOST IMPORTANT)
-    //////////////////////////////////////////////////////////
-
-    logger.info("🚀 Initial News Prefetch Started");
+    logger.info("Initial News Prefetch Started");
 
     const country = "in";
     const categories = [
@@ -35,26 +31,16 @@ const startServer = async () => {
       "science"
     ];
 
-    // headlines
     await getCombinedNews(country);
 
-    // categories
     for (const category of categories) {
       await getCombinedNews(country, category);
     }
 
-    logger.info("✅ Initial Prefetch Done");
-
-    //////////////////////////////////////////////////////////
-    // 🔁 CRON START
-    //////////////////////////////////////////////////////////
+    logger.info("Initial Prefetch Done");
 
     startNewsCron();
     logger.info("Cron jobs started");
-
-    //////////////////////////////////////////////////////////
-    // 🚀 SERVER START
-    //////////////////////////////////////////////////////////
 
     app.listen(PORT, () => {
       logger.info(`Server running on port ${PORT}`);

@@ -24,7 +24,7 @@ const sendEmail = async (to, subject, html) => {
   }
 
   const data = await response.json();
-  console.log('✅ Brevo sent:', data.messageId);
+  console.log('Brevo sent:', data.messageId);
   return data;
 };
 

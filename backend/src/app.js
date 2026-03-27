@@ -22,13 +22,12 @@ app.use(
     credentials: true,
   })
 );
+
 app.options("*", cors());
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-
 app.use(express.static("public"));
-
 app.use(cookieParser());
 
 
@@ -36,11 +35,15 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
 
+
+
 app.use("/api/v1/auth", authLimiter, authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/bookmarks", bookmarkRouter);
 app.use("/api/v1/history", historyRouter);
 app.use("/api/v1/news", newsRouter);
+
+
 
 app.use((req, res, next) => {
   res.status(404).json({
@@ -48,7 +51,6 @@ app.use((req, res, next) => {
     message: "Route not found",
   });
 });
-
 
 
 app.use(errorHandler);

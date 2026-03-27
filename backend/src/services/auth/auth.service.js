@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs";
 export const authService = {
 
 //////////////////////////////////////////////////////////
-// 🔐 EMAIL TEMPLATES
+// EMAIL TEMPLATES
 //////////////////////////////////////////////////////////
 
 generateOtpEmailTemplate(otp) {
@@ -233,9 +233,13 @@ generateEmailChangedTemplate(name, newEmail) {
   </div>
   `;
 },
+
+
+
 //////////////////////////////////////////////////////////
-// 🔐 SEND OTP
+// SEND OTP
 //////////////////////////////////////////////////////////
+
 
 async sendOtp(email) {
 if (!email) throw new ApiError(400, "Email required");
@@ -269,8 +273,10 @@ console.log("OTP:", otp);
 return { message: "OTP sent successfully" };
 },
 
+
+
 //////////////////////////////////////////////////////////
-// 🔐 VERIFY OTP
+// VERIFY OTP
 //////////////////////////////////////////////////////////
 
 async verifyOtp(email, otp) {
@@ -312,8 +318,10 @@ async verifyOtp(email, otp) {
   await OTP.deleteOne({ _id: record._id });
 },
 
+
+
 //////////////////////////////////////////////////////////
-// 👤 REGISTER
+// REGISTER
 //////////////////////////////////////////////////////////
 
 async registerUser({ fullname, email, password }) {
@@ -341,8 +349,10 @@ async registerUser({ fullname, email, password }) {
     .select("-password -refreshTokens");
 },
 
+
+
 //////////////////////////////////////////////////////////
-// 🔑 LOGIN
+// LOGIN
 //////////////////////////////////////////////////////////
 
 async loginUser(email, password) {
@@ -361,8 +371,10 @@ async loginUser(email, password) {
   return { user, accessToken, refreshToken };
 },
 
+
+
 //////////////////////////////////////////////////////////
-// 🔄 TOKENS
+// TOKENS
 //////////////////////////////////////////////////////////
 
 async generateAccessAndRefreshToken(userId) {
@@ -387,8 +399,10 @@ async generateAccessAndRefreshToken(userId) {
   return { accessToken, refreshToken };
 },
 
+
+
 //////////////////////////////////////////////////////////
-// 🔐 FORGOT PASSWORD
+// FORGOT PASSWORD
 //////////////////////////////////////////////////////////
 
 async sendResetOtp(email) {
@@ -429,7 +443,6 @@ async verifyResetOtp(email, otp) {
 
   if (!valid) throw new ApiError(400, "Invalid OTP");
 },
-
 
 async resetPassword(email, otp, newPassword) {
 
@@ -492,8 +505,10 @@ async resetPassword(email, otp, newPassword) {
   );
 },
 
+
+
 //////////////////////////////////////////////////////////
-// 🔐 CHANGE PASSWORD
+// CHANGE PASSWORD
 //////////////////////////////////////////////////////////
 
 async changePassword(userId, oldPassword, newPassword) {
@@ -526,6 +541,8 @@ this.generatePasswordChangedTemplate(user.fullname)
 
 },
 
+
+
 //////////////////////////////////////////////////////////
 // LOGOUT
 //////////////////////////////////////////////////////////
@@ -542,6 +559,8 @@ async logoutUser(userId, refreshToken) {
 
   await user.save({ validateBeforeSave: false });
 },
+
+
 
 //////////////////////////////////////////////////////////
 // REFRESH TOKEN
@@ -567,6 +586,8 @@ async refreshAccessToken(refreshToken) {
 
   return await this.generateAccessAndRefreshToken(user._id);
 },
+
+
 
 async sendEmailChangeOtp(userId, newEmail) {
 

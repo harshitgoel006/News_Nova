@@ -40,7 +40,19 @@ const historySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-historySchema.index({ user: 1, readAt: -1 });
-historySchema.index({ user: 1, articleId: 1 });
+historySchema.index(
+  { 
+    user: 1, 
+    readAt: -1 
+  }
+);
+
+
+historySchema.index(
+  { 
+    user: 1, 
+    articleId: 1 
+  }
+);
 
 export const History = mongoose.model("History", historySchema);

@@ -13,18 +13,16 @@ let index = 0;
 let apiCallsToday = 0;
 const MAX_DAILY_CALLS = 100;
 
-// 🔄 Reset counter daily
 cron.schedule("0 0 * * *", () => {
   apiCallsToday = 0;
-  logger.info("🔄 API counter reset");
+  logger.info("API counter reset");
 });
 
-// 🔥 CRON (every 30 min, controlled)
 export const startNewsCron = () => {
 
   cron.schedule("*/30 * * * *", async () => {
     if (apiCallsToday >= MAX_DAILY_CALLS) {
-      logger.warn("⚠️ DAILY LIMIT REACHED");
+      logger.warn("DAILY LIMIT REACHED");
       return;
     }
 
@@ -38,9 +36,9 @@ export const startNewsCron = () => {
     const fresh = latest && (Date.now() - new Date(latest.publishedAt).getTime()) < 45 * 60 * 1000;
 
     if (count < 10 || !fresh) {
-      logger.info(`🚀 Fetching ${category} | Count: ${count} | Fresh: ${fresh}`);
+      logger.info(`Fetching ${category} | Count: ${count} | Fresh: ${fresh}`);
       
-      await getCombinedNews(country, category); // ❌ no forceRefresh
+      await getCombinedNews(country, category); 
       
       apiCallsToday++;
     } else {

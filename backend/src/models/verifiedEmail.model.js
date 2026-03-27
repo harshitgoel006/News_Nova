@@ -13,7 +13,14 @@ const verifiedEmailSchema = new mongoose.Schema({
   },
 });
 
-verifiedEmailSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+verifiedEmailSchema.index(
+  { 
+    expiresAt: 1 
+  }, 
+  { 
+    expireAfterSeconds: 0 
+  }
+);
 
 export const VerifiedEmail = mongoose.model(
   "VerifiedEmail",

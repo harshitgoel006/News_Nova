@@ -42,7 +42,21 @@ const bookmarkSchema = new mongoose.Schema(
 
 
 
-bookmarkSchema.index({ user: 1, articleId: 1 }, { unique: true });
-bookmarkSchema.index({ user: 1, createdAt: -1 });
+bookmarkSchema.index(
+  { 
+    user: 1, 
+    articleId: 1 
+  }, 
+  { 
+    unique: true 
+  }
+);
+
+bookmarkSchema.index(
+  { 
+    user: 1, 
+    createdAt: -1 
+  }
+);
 
 export const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
