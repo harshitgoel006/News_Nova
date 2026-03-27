@@ -1,45 +1,31 @@
-
-import nodemailer from "nodemailer";
-import { ApiError } from "./ApiError.js";
-
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
-
-// Optional: verify transporter at startup
-if (process.env.NODE_ENV !== "production") {
-  transporter.verify()
-    .then(() => console.log("📧 SMTP Server ready"))
-    .catch(err => console.error("SMTP Config Error:", err.message));
-}
+import fetch from 'node-fetch';  // npm i node-fetch
 
 const sendEmail = async (to, subject, html) => {
-  if (!to) throw new ApiError(400, "Recipient email is required");
-
-  try {
-    return await transporter.sendMail({
-      from: `"SmartCart" <${process.env.SMTP_USER}>`,
-      to,
+  const apiKey = process.env.BREVO_API_KEY;
+  
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'api-key': apiKey,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      sender: { name: 'NewsNova', email: 'harshitgoel885@gmail.com' },
+      to: [{ email: to }],
       subject,
-      html,
-    });
-  } catch (error) {
-    throw new ApiError(
-      500,
-      `Email sending failed: ${error.message}`
-    );
+      htmlContent: html,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(`Brevo: ${error.message}`);
   }
+
+  const data = await response.json();
+  console.log('✅ Brevo sent:', data.messageId);
+  return data;
 };
-
-
 
 export default sendEmail;
