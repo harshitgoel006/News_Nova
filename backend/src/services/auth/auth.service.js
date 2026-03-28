@@ -25,7 +25,7 @@ generateOtpEmailTemplate(otp) {
       </p>
 
       <p style="color:#555">
-        We received a request to verify your email address for your NewsApp account.
+        We received a request to verify your email address for your NewsNova account.
       </p>
 
       <p style="color:#555">
@@ -68,7 +68,7 @@ generateResetOtpTemplate(otp) {
       <p>Hi 👋,</p>
 
       <p>
-        We received a request to reset your password for your NewsApp account.
+        We received a request to reset your password for your NewsNova account.
       </p>
 
       <p>Use the OTP below to continue:</p>
@@ -110,7 +110,7 @@ generatePasswordChangedTemplate(name) {
       </p>
 
       <p style="color:#555;font-size:15px">
-        This is a confirmation that the password for your <strong>NewsApp</strong> account has been successfully changed.
+        This is a confirmation that the password for your <strong>NewsNova</strong> account has been successfully changed.
       </p>
 
       <div style="background:#f8f8f8;padding:12px;border-radius:6px;margin:20px 0">
@@ -155,7 +155,7 @@ generatePasswordResetSuccessTemplate(name) {
       </p>
 
       <p style="color:#555;font-size:15px">
-        Your password for your <strong>NewsApp</strong> account has been successfully reset.
+        Your password for your <strong>NewsNova</strong> account has been successfully reset.
       </p>
 
       <div style="background:#f8f8f8;padding:12px;border-radius:6px;margin:20px 0">
