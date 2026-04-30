@@ -16,14 +16,16 @@ const app = express();
 app.set("trust proxy", 1);
 app.use(helmet());
 
-app.use(
-  cors({
-    origin:"https://news-nova-rose.vercel.app",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: [
+    "https://news-nova-rose.vercel.app",
+    "http://localhost:5173"
+  ],
+  credentials: true,
+};
 
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
