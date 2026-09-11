@@ -9,9 +9,7 @@ import bcrypt from "bcryptjs";
 
 export const authService = {
 
-//////////////////////////////////////////////////////////
 // EMAIL TEMPLATES
-//////////////////////////////////////////////////////////
 
 generateOtpEmailTemplate(otp) {
   return `
@@ -236,9 +234,8 @@ generateEmailChangedTemplate(name, newEmail) {
 
 
 
-//////////////////////////////////////////////////////////
+
 // SEND OTP
-//////////////////////////////////////////////////////////
 
 
 async sendOtp(email) {
@@ -261,23 +258,20 @@ otpHash: otp,
 purpose: "verify_email",
 });
 
-// ✅ FIXED (await added)
+
 await sendEmail(
 email,
 "Verify your email",
 this.generateOtpEmailTemplate(otp)
 );
 
-console.log("OTP:", otp);
 
 return { message: "OTP sent successfully" };
 },
 
 
 
-//////////////////////////////////////////////////////////
 // VERIFY OTP
-//////////////////////////////////////////////////////////
 
 async verifyOtp(email, otp) {
 
@@ -320,9 +314,7 @@ async verifyOtp(email, otp) {
 
 
 
-//////////////////////////////////////////////////////////
 // REGISTER
-//////////////////////////////////////////////////////////
 
 async registerUser({ fullname, email, password }) {
 
@@ -351,9 +343,7 @@ async registerUser({ fullname, email, password }) {
 
 
 
-//////////////////////////////////////////////////////////
 // LOGIN
-//////////////////////////////////////////////////////////
 
 async loginUser(email, password) {
 
@@ -373,9 +363,7 @@ async loginUser(email, password) {
 
 
 
-//////////////////////////////////////////////////////////
 // TOKENS
-//////////////////////////////////////////////////////////
 
 async generateAccessAndRefreshToken(userId) {
 
@@ -401,9 +389,7 @@ async generateAccessAndRefreshToken(userId) {
 
 
 
-//////////////////////////////////////////////////////////
 // FORGOT PASSWORD
-//////////////////////////////////////////////////////////
 
 async sendResetOtp(email) {
 const user = await User.findOne({ email });
@@ -507,9 +493,7 @@ async resetPassword(email, otp, newPassword) {
 
 
 
-//////////////////////////////////////////////////////////
 // CHANGE PASSWORD
-//////////////////////////////////////////////////////////
 
 async changePassword(userId, oldPassword, newPassword) {
 
@@ -543,9 +527,7 @@ this.generatePasswordChangedTemplate(user.fullname)
 
 
 
-//////////////////////////////////////////////////////////
 // LOGOUT
-//////////////////////////////////////////////////////////
 
 async logoutUser(userId, refreshToken) {
   const user = await User.findById(userId)
@@ -562,9 +544,7 @@ async logoutUser(userId, refreshToken) {
 
 
 
-//////////////////////////////////////////////////////////
 // REFRESH TOKEN
-//////////////////////////////////////////////////////////
 
 async refreshAccessToken(refreshToken) {
 
@@ -586,7 +566,6 @@ async refreshAccessToken(refreshToken) {
 
   return await this.generateAccessAndRefreshToken(user._id);
 },
-
 
 
 async sendEmailChangeOtp(userId, newEmail) {
@@ -642,7 +621,7 @@ async verifyEmailChange(userId, newEmail, otp) {
 
   await OTP.deleteOne({ _id: record._id });
 
-  // 🔥 notify old email
+  
   await sendEmail(
 oldEmail,
 "Your email was changed",

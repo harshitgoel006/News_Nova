@@ -1,8 +1,8 @@
-# NewsNova — AI-Powered Personalized News Intelligence System
+# NewsNova — Full-Stack News Aggregation Platform
 
 ## Overview
 
-**NewsNova** is a full-stack, production-ready news platform designed to deliver **personalized, real-time, and intelligent news experiences**.
+**NewsNova** is a full-stack news aggregation platform that collects, organizes, and delivers news from multiple sources through a responsive web application.
 It goes beyond a simple news app by integrating **user behavior tracking, caching, background jobs, and scalable backend architecture**.
 
 ---
